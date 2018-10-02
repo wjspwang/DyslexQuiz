@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour {
             }
             else if (sceneIndex == 133)
             {
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(178);
                 unansweredQuestions.Clear();
             }
             else if (sceneIndex > 136 && sceneIndex < 147)

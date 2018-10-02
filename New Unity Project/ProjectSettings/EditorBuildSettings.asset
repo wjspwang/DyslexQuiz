@@ -506,4 +506,40 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Division/Div10.unity
     guid: 3d06007a6d37fff4a80ee04463247eed
+  - enabled: 1
+    path: Assets/Scenes/Writing/writing0.unity
+    guid: a85fbe06550d48240be81c8c783c7c24
+  - enabled: 1
+    path: Assets/Scenes/Writing/writing1.unity
+    guid: 672e75b0b00ced74489a70598c75816c
+  - enabled: 1
+    path: Assets/Scenes/Writing/writing2.unity
+    guid: 767326faa42f59241ba06b969da85790
+  - enabled: 1
+    path: Assets/Scenes/Writing/writing3.unity
+    guid: 9b901407cf13fe443882c9ed6a0b53b7
+  - enabled: 1
+    path: Assets/Scenes/Writing/writing4.unity
+    guid: 555c0e46c9a7ebe4db09e8cbb5db1427
+  - enabled: 1
+    path: Assets/Scenes/Writing/writing5.unity
+    guid: bb5fab6d14761d34cb733b4a6b9bc3b1
+  - enabled: 1
+    path: Assets/Scenes/Writing/writing6.unity
+    guid: 1eefe873008485a4ab5c0572c7828dea
+  - enabled: 1
+    path: Assets/Scenes/Writing/writing7.unity
+    guid: 5842493df76cc724ea194e93a9bcfb58
+  - enabled: 1
+    path: Assets/Scenes/Writing/writing8.unity
+    guid: 7802986edae301541a88fccc1cd61c7a
+  - enabled: 1
+    path: Assets/Scenes/Writing/writing9.unity
+    guid: 97d9c39eef5c53544817aac4073d906c
+  - enabled: 1
+    path: Assets/Scenes/InstW.unity
+    guid: 51a70a80055167046997055f41c11280
+  - enabled: 1
+    path: Assets/Scenes/MathModeSelect.unity
+    guid: d448937006901ac458e8b9057a5107c6
   m_configObjects: {}

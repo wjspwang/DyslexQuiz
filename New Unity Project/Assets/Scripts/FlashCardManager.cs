@@ -45,7 +45,15 @@ public class FlashCardManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             int CurrentSceneNum = SceneManager.GetActiveScene().buildIndex;
+            if (CurrentSceneNum > 166 && CurrentSceneNum < 177)
+            {
+                SceneManager.LoadScene(178);
+            }
+            else
+            {
             SceneManager.LoadScene(123);
+            }
+            
 
             unansweredQuestions.Clear();
         }
@@ -63,7 +71,20 @@ public class FlashCardManager : MonoBehaviour
     {
         StartCoroutine(TransitionToNextQuestion());
     }
-   
+
+    public void NextNumber()
+    {
+        int SceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (SceneIndex != 176)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            SceneManager.LoadScene(178);
+        }
+        
+    }
 
     IEnumerator TransitionToNextQuestion()
     {

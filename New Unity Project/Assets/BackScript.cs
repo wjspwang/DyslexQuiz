@@ -18,9 +18,13 @@ public class BackScript : MonoBehaviour
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (sceneIndex == 128)
+            if (sceneIndex == 128 || sceneIndex == 177)
             {
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(178);
+            }
+            else if (sceneIndex == 123)
+            {
+                SceneManager.LoadScene(3);
             }
             else
             {

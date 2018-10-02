@@ -20,7 +20,7 @@ public class LoadLevelScript : MonoBehaviour {
             if(sceneIndex == 4)
             {
             SceneManager.LoadScene(3);
-            }else if(sceneIndex == 3)
+            }else if(sceneIndex == 3 || sceneIndex == 178)
             {
                 SceneManager.LoadScene(2);
             }else if (sceneIndex == 2)
@@ -30,6 +30,7 @@ public class LoadLevelScript : MonoBehaviour {
             {
                 SceneManager.LoadScene(0);
             }
+            
         }
     }
 }
