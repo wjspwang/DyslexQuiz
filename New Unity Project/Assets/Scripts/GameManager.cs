@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
     private Question currentQuestion;
 
     [SerializeField]
+    private Text LevelText;
+    [SerializeField]
     private Text factText;
     [SerializeField]
     private Text textA;
@@ -25,6 +27,8 @@ public class GameManager : MonoBehaviour {
     private Text textB;
     [SerializeField]
     private Text textC;
+    [SerializeField]
+    private Text Retry;
 
     [SerializeField]
     private Animator LevelDesign;
@@ -43,7 +47,9 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
-       
+        
+        PlayerPrefs.DeleteKey("ArithRetries" + LevelText.text);
+        Debug.Log("Start:" + PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
         if (unansweredQuestions == null || unansweredQuestions.Count == 0)
         {
             unansweredQuestions = questions.ToList<Question>();
@@ -54,8 +60,8 @@ public class GameManager : MonoBehaviour {
         SetCurrentQuestion();
         CorrectText.SetActive(false);
         WrongText.SetActive(false);
-        
 
+       
     }
     void QuestionSetSelect()
     {
@@ -90,6 +96,7 @@ public class GameManager : MonoBehaviour {
     }
     void Update()
     {
+        Retry.text = PlayerPrefs.GetInt("ArithRetries" + LevelText.text) + "";
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -209,6 +216,7 @@ public class GameManager : MonoBehaviour {
 
     void SetCurrentQuestion()
     {
+        
         int QuestionNumberIndex = Random.Range(0, unansweredQuestions.Count);
         currentQuestion = unansweredQuestions[QuestionNumberIndex];
         
@@ -552,13 +560,15 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArith();
+            PlayerPrefs.SetInt("ArithRetries" + LevelText.text, PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
 
 
         }
         else
         {
             WrongText.SetActive(true);
-            Debug.Log("Wrong");
+            PlayerPrefs.SetInt("ArithRetries" + LevelText.text , PlayerPrefs.GetInt("ArithRetries" + LevelText.text) +1);
+            Debug.Log("ArithRetries" + LevelText.text + " is " + PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArith();
         }
@@ -572,13 +582,15 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArith();
+            PlayerPrefs.SetInt("ArithRetries" + LevelText.text, PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
 
 
         }
         else
         {
             WrongText.SetActive(true);
-            Debug.Log("Wrong");
+            PlayerPrefs.SetInt("ArithRetries" + LevelText.text, PlayerPrefs.GetInt("ArithRetries" + LevelText.text) + 1);
+            Debug.Log("ArithRetries" + LevelText.text + " is " + PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArith();
 
@@ -593,13 +605,14 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArith();
-
+            PlayerPrefs.SetInt("ArithRetries" + LevelText.text, PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
 
         }
         else
         {
             WrongText.SetActive(true);
-            Debug.Log("Wrong");
+            PlayerPrefs.SetInt("ArithRetries" + LevelText.text, PlayerPrefs.GetInt("ArithRetries" + LevelText.text) + 1);
+            Debug.Log("ArithRetries" + LevelText.text + " is " + PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArith();
 

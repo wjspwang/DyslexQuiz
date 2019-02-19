@@ -1,7 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class LevelControlScript : MonoBehaviour {
@@ -10,7 +11,7 @@ public class LevelControlScript : MonoBehaviour {
     GameObject levelSign;
     int sceneIndex, levelPassed, BlendLevelPassed, DeleteLevelPassed,
         ManipulateLevelPassed, RhymeLevelPassed, ArithLevelPassed,
-        ArithSubLevelPassed, ArithMultLevelPassed, ArithDivLevelPassed;
+        ArithSubLevelPassed, ArithMultLevelPassed, ArithDivLevelPassed, retry;
 
     // Use this for initialization
     void Start() {
@@ -31,6 +32,7 @@ public class LevelControlScript : MonoBehaviour {
         ArithSubLevelPassed = PlayerPrefs.GetInt("ArithSubPass");
         ArithMultLevelPassed = PlayerPrefs.GetInt("ArithMultPass");
         ArithDivLevelPassed = PlayerPrefs.GetInt("ArithDivPass");
+        retry = PlayerPrefs.GetInt("Level " + "LevelNumber");
 
     }
     //YOU WIN METHODS
@@ -95,14 +97,17 @@ public class LevelControlScript : MonoBehaviour {
     }
     public void youWinArith()
     {
+        
+   
         if (sceneIndex == 120)
             Invoke("loadArithMenu", 1f);
         else
         {
             if (ArithLevelPassed < sceneIndex)
                 PlayerPrefs.SetInt("ArithPass", sceneIndex);
-            Invoke("loadNextLevel", 1f);
+            Invoke("loadArithMenu", 1f);
         }
+        Invoke("loadArithMenu", 1f);
     }
     public void youWinArithSub()
     {
@@ -166,7 +171,8 @@ public class LevelControlScript : MonoBehaviour {
     }
     public void youLoseArith()
     {
-        Invoke("loadArithMenu", 1f);
+        PlayerPrefs.SetInt("Level " + "LevelNumber", +1);
+        Invoke( "ReloadLevel", 1f);
     }
     public void youLoseArithSub()
     {
@@ -181,6 +187,11 @@ public class LevelControlScript : MonoBehaviour {
         Invoke("loadArithDivMenu", 1f);
     }
 
+    //Reload
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(sceneIndex);
+    }
 
     //LOAD NEXT LEVEL
     public void loadNextLevel()

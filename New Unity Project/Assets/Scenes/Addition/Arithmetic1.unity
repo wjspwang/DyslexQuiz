@@ -119,6 +119,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1605141863938978, guid: fd787df8f0a8e474c9cfca6e4f1ea5f9, type: 3}
+      propertyPath: m_Name
+      value: LevelDesignArithAdd
+      objectReference: {fileID: 0}
     - target: {fileID: 224943420659249910, guid: fd787df8f0a8e474c9cfca6e4f1ea5f9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -158,6 +162,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224943420659249910, guid: fd787df8f0a8e474c9cfca6e4f1ea5f9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224943420659249910, guid: fd787df8f0a8e474c9cfca6e4f1ea5f9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224943420659249910, guid: fd787df8f0a8e474c9cfca6e4f1ea5f9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224943420659249910, guid: fd787df8f0a8e474c9cfca6e4f1ea5f9,
         type: 3}
@@ -259,8 +278,25 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9115041995158345945, guid: fd787df8f0a8e474c9cfca6e4f1ea5f9,
+        type: 3}
+      propertyPath: Retry
+      value: 
+      objectReference: {fileID: 1618655831}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd787df8f0a8e474c9cfca6e4f1ea5f9, type: 3}
+--- !u!114 &1618655831 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7650845406823066244, guid: fd787df8f0a8e474c9cfca6e4f1ea5f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 958501415}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1774051496
 PrefabInstance:
   m_ObjectHideFlags: 0
