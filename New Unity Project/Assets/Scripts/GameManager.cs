@@ -47,9 +47,9 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
-        
-        PlayerPrefs.DeleteKey("ArithRetries" + LevelText.text);
-        Debug.Log("Start:" + PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
+        ModePrefSelector(SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.DeleteKey(ModePref + LevelText.text);
+        //Debug.Log("Start:" + PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
         if (unansweredQuestions == null || unansweredQuestions.Count == 0)
         {
             unansweredQuestions = questions.ToList<Question>();
@@ -63,40 +63,10 @@ public class GameManager : MonoBehaviour {
 
        
     }
-    void QuestionSetSelect()
-    {
-        /*
-        int CurrentSceneNum = SceneManager.GetActiveScene().buildIndex;
-        Debug.Log(CurrentSceneNum + " CurrentSceneNum");
-        if (CurrentSceneNum > 5 && CurrentSceneNum < 26)
-        {
-            CountingQuestionSet();
-        }
-        else if (CurrentSceneNum > 26 && CurrentSceneNum < 47)
-        {
-            BlendingQuestionSet();
-        }else if(CurrentSceneNum > 47 && CurrentSceneNum < 68)
-        {
-            DeletingQuestionSet();
-        }else if (CurrentSceneNum > 68 && CurrentSceneNum < 89)
-        {
-            ManipulatingQuestionSet();
-        }else if (CurrentSceneNum > 89 && CurrentSceneNum < 110)
-        {
-            RhymingQuestionSet();
-        }else if (CurrentSceneNum > 110 && CurrentSceneNum < 121)
-        {
-            ArithQuestionSet();
-        }
-        */
-
-        //int QuestionNumberIndex = Random.Range(0, unansweredQuestions.Count);
-
-        
-    }
+  
     void Update()
     {
-        Retry.text = PlayerPrefs.GetInt("ArithRetries" + LevelText.text) + "";
+        Retry.text = PlayerPrefs.GetInt(ModePref + LevelText.text) + "";
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -239,7 +209,47 @@ public class GameManager : MonoBehaviour {
     {
         StartCoroutine(TransitionToNextQuestion());
     }
-
+    private string ModePref;
+    public void ModePrefSelector(int index)
+    {
+        int curr_scene = SceneManager.GetActiveScene().buildIndex;
+        if (curr_scene >= 5 && curr_scene <= 25)
+        {
+            ModePref = "CountingRetries";
+        }
+        else if (curr_scene >= 26 && curr_scene <= 46)
+        {
+            ModePref = "BlendingRetries";
+        }
+        else if (curr_scene >= 47 && curr_scene <= 67)
+        {
+            ModePref = "DeletingRetries";
+        }
+        else if (curr_scene >= 68 && curr_scene <= 88)
+        {
+            ModePref = "ManipulatingRetries";
+        }
+        else if (curr_scene >= 89 && curr_scene <= 109)
+        {
+            ModePref = "RhymingRetries";
+        }
+        else if (curr_scene >= 110 && curr_scene <= 120)
+        {
+            ModePref = "ArithRetries";
+        }
+        else if (curr_scene == 134 || (curr_scene >= 137 && curr_scene <= 146))
+        {
+            ModePref = "ArithSubRetries";
+        }
+        else if (curr_scene == 135 || (curr_scene >= 147 && curr_scene <= 156))
+        {
+            ModePref = "ArithMultRetries";
+        }
+        else if (curr_scene == 136 || (curr_scene >= 157 && curr_scene <= 166))
+        {
+            ModePref = "ArithDivRetries";
+        }
+    }
     public void UserSelectAButton()
     {
         
@@ -250,7 +260,8 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWin();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
         else
         {
@@ -258,6 +269,8 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLose();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
 
         //StartCoroutine(TransitionToNextQuestion());
@@ -273,6 +286,8 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWin();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
@@ -281,6 +296,8 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLose();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
 
         //StartCoroutine(TransitionToNextQuestion());
@@ -296,7 +313,8 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWin();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
         else
         {
@@ -304,6 +322,8 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLose();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
 
         //StartCoroutine(TransitionToNextQuestion());
@@ -318,8 +338,8 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinBlend();
-
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
         else
         {
@@ -327,6 +347,8 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseBlending();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
     }
     public void select_B()
@@ -338,8 +360,8 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinBlend();
-
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
         else
         {
@@ -347,6 +369,8 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseBlending();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
     }
     public void select_C()
@@ -358,8 +382,8 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinBlend();
-
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
         else
         {
@@ -367,6 +391,8 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseBlending();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
+            Debug.Log(ModePref + LevelText.text + "is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
     }
     public void D_buttonA()
@@ -378,7 +404,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinDelete();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
@@ -387,6 +413,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseDeleting();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
     }
     public void D_buttonB()
@@ -398,7 +425,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinDelete();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
@@ -407,6 +434,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseDeleting();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
     }
     public void D_buttonC()
@@ -418,7 +446,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinDelete();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
@@ -427,6 +455,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseDeleting();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
     }
 
@@ -439,7 +468,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinManipulate();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
@@ -448,6 +477,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseManipulating();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
     }
     public void M_buttonB()
@@ -459,7 +489,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinManipulate();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
@@ -468,6 +498,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseManipulating();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
     }
     public void M_buttonC()
@@ -479,6 +510,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinManipulate();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
 
         }
@@ -488,6 +520,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseManipulating();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
     }
     public void R_buttonA()
@@ -499,7 +532,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinRhyme();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
@@ -508,6 +541,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseRhyming();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
     }
     public void R_buttonB()
@@ -519,6 +553,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinRhyme();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
 
         }
@@ -528,6 +563,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseRhyming();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
     }
     public void R_buttonC()
@@ -540,6 +576,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinRhyme();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
 
         }
@@ -549,6 +586,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseRhyming();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
     }
     public void A_buttonA()
@@ -560,15 +598,15 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArith();
-            PlayerPrefs.SetInt("ArithRetries" + LevelText.text, PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
 
         }
         else
         {
             WrongText.SetActive(true);
-            PlayerPrefs.SetInt("ArithRetries" + LevelText.text , PlayerPrefs.GetInt("ArithRetries" + LevelText.text) +1);
-            Debug.Log("ArithRetries" + LevelText.text + " is " + PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
+            PlayerPrefs.SetInt(ModePref + LevelText.text , PlayerPrefs.GetInt(ModePref + LevelText.text) +1);
+            Debug.Log(ModePref + LevelText.text + " is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArith();
         }
@@ -582,15 +620,15 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArith();
-            PlayerPrefs.SetInt("ArithRetries" + LevelText.text, PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
 
         }
         else
         {
             WrongText.SetActive(true);
-            PlayerPrefs.SetInt("ArithRetries" + LevelText.text, PlayerPrefs.GetInt("ArithRetries" + LevelText.text) + 1);
-            Debug.Log("ArithRetries" + LevelText.text + " is " + PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
+            Debug.Log(ModePref + LevelText.text + " is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArith();
 
@@ -605,14 +643,14 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArith();
-            PlayerPrefs.SetInt("ArithRetries" + LevelText.text, PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
         {
             WrongText.SetActive(true);
-            PlayerPrefs.SetInt("ArithRetries" + LevelText.text, PlayerPrefs.GetInt("ArithRetries" + LevelText.text) + 1);
-            Debug.Log("ArithRetries" + LevelText.text + " is " + PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
+            Debug.Log(ModePref + LevelText.text + " is " + PlayerPrefs.GetInt(ModePref + LevelText.text));
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArith();
 
@@ -627,7 +665,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArithSub();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
@@ -636,6 +674,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArithSub();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
     }
     public void Sub_buttonB()
@@ -647,6 +686,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArithSub();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
 
         }
@@ -656,6 +696,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArithSub();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
 
         }
     }
@@ -668,7 +709,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArithSub();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
@@ -677,7 +718,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArithSub();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
     }
     public void Mult_ButtonA()
@@ -690,7 +731,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArithMult();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
         else
         {
@@ -698,6 +739,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArithMult();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
 
         //StartCoroutine(TransitionToNextQuestion());
@@ -713,7 +755,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArithMult();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
         else
         {
@@ -721,6 +763,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArithMult();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
 
         //StartCoroutine(TransitionToNextQuestion());
@@ -736,7 +779,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArithMult();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
         else
         {
@@ -744,6 +787,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArithMult();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
 
         //StartCoroutine(TransitionToNextQuestion());
@@ -758,7 +802,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArithDiv();
-
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
         }
         else
         {
@@ -766,6 +810,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArithDiv();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
 
         //StartCoroutine(TransitionToNextQuestion());
@@ -781,6 +826,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArithDiv();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
@@ -789,6 +835,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArithDiv();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
 
         //StartCoroutine(TransitionToNextQuestion());
@@ -804,6 +851,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Correct");
             NextQuestion();
             LevelControlScript.instance.youWinArithDiv();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text));
 
         }
         else
@@ -812,6 +860,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Wrong");
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArithDiv();
+            PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
         }
 
         //StartCoroutine(TransitionToNextQuestion());

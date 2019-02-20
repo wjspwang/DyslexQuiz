@@ -44,9 +44,10 @@ public class LevelControlScript : MonoBehaviour {
         {
             if (levelPassed < sceneIndex)
                 PlayerPrefs.SetInt("LevelPassed", sceneIndex);
-            Invoke("loadNextLevel", 1f);
-            
+            Invoke("loadCountingMenu", 1f);
+
         }
+        Invoke("loadCountingMenu", 1f);
     }
     public void youWinBlend()
     {
@@ -56,8 +57,9 @@ public class LevelControlScript : MonoBehaviour {
         {
             if (BlendLevelPassed < sceneIndex)
                 PlayerPrefs.SetInt("BlendPass", sceneIndex);
-            Invoke("loadNextLevel", 1f);
+            Invoke("loadBlendingMenu", 1f);
         }
+        Invoke("loadBlendingMenu", 1f);
     }
 
     public void youWinDelete()
@@ -68,8 +70,9 @@ public class LevelControlScript : MonoBehaviour {
         {
             if (DeleteLevelPassed < sceneIndex)
                 PlayerPrefs.SetInt("DeletePass", sceneIndex);
-            Invoke("loadNextLevel", 1f);
+            Invoke("loadDeletingMenu", 1f);
         }
+        Invoke("loadDeletingMenu", 1f);
     }
 
     public void youWinManipulate()
@@ -80,8 +83,9 @@ public class LevelControlScript : MonoBehaviour {
         {
             if (ManipulateLevelPassed < sceneIndex)
                 PlayerPrefs.SetInt("ManipulatePass", sceneIndex);
-            Invoke("loadNextLevel", 1f);
+            Invoke("loadManipulatingMenu", 1f);
         }
+        Invoke("loadManipulatingMenu", 1f);
     }
 
     public void youWinRhyme()
@@ -92,8 +96,9 @@ public class LevelControlScript : MonoBehaviour {
         {
             if (RhymeLevelPassed < sceneIndex)
                 PlayerPrefs.SetInt("RhymePass", sceneIndex);
-            Invoke("loadNextLevel", 1f);
+            Invoke("loadRhymingMenu", 1f);
         }
+        Invoke("loadRhymingMenu", 1f);
     }
     public void youWinArith()
     {
@@ -117,8 +122,9 @@ public class LevelControlScript : MonoBehaviour {
         {
             if (ArithSubLevelPassed < sceneIndex)
                 PlayerPrefs.SetInt("ArithSubPass", sceneIndex);
-            Invoke("loadNextLevel", 1f);
+            Invoke("loadArithSubMenu", 1f);
         }
+        Invoke("loadArithSubMenu", 1f);
     }
     public void youWinArithMult()
     {
@@ -128,8 +134,9 @@ public class LevelControlScript : MonoBehaviour {
         {
             if (ArithMultLevelPassed < sceneIndex)
                 PlayerPrefs.SetInt("ArithMultPass", sceneIndex);
-            Invoke("loadNextLevel", 1f);
+            Invoke("loadArithMultMenu", 1f);
         }
+        Invoke("loadArithMultMenu", 1f);
     }
     public void youWinArithDiv()
     {
@@ -139,52 +146,53 @@ public class LevelControlScript : MonoBehaviour {
         {
             if (ArithDivLevelPassed < sceneIndex)
                 PlayerPrefs.SetInt("ArithDivPass", sceneIndex);
-            Invoke("loadNextLevel", 1f);
+            Invoke("loadArithDivMenu", 1f);
 
         }
+        Invoke("loadArithDivMenu", 1f);
     }
 
     //YOU LOSE METHODS
     public void youLose()
     {
-        Invoke("loadCountingMenu", 1f);
+        Invoke("ReloadLevel", 1f);
     }
 
     public void youLoseBlending()
     {
-        Invoke("loadBlendingMenu", 1f);
+        Invoke("ReloadLevel", 1f);
     }
 
     public void youLoseDeleting()
     {
-        Invoke("loadDeletingMenu", 1f);
+        Invoke("ReloadLevel", 1f);
     }
 
     public void youLoseManipulating()
     {
-        Invoke("loadManipulatingMenu", 1f);
+        Invoke("ReloadLevel", 1f);
     }
 
     public void youLoseRhyming()
     {
-        Invoke("loadRhymingMenu", 1f);
+        Invoke("ReloadLevel", 1f);
     }
     public void youLoseArith()
     {
-        PlayerPrefs.SetInt("Level " + "LevelNumber", +1);
+       // PlayerPrefs.SetInt("Level " + "LevelNumber", +1);
         Invoke( "ReloadLevel", 1f);
     }
     public void youLoseArithSub()
     {
-        Invoke("loadArithSubMenu", 1f);
+        Invoke("ReloadLevel", 1f);
     }
     public void youLoseArithMult()
     {
-        Invoke("loadArithMultMenu", 1f);
+        Invoke("ReloadLevel", 1f);
     }
     public void youLoseArithDiv()
     {
-        Invoke("loadArithDivMenu", 1f);
+        Invoke("ReloadLevel", 1f);
     }
 
     //Reload
