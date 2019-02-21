@@ -2807,6 +2807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cb4131ab3ea544e98521dfcc20944f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerName: {fileID: 0}
   level02Button: {fileID: 0}
   level03Button: {fileID: 0}
   level04Button: {fileID: 0}
@@ -2840,6 +2841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cb4131ab3ea544e98521dfcc20944f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerName: {fileID: 0}
   level02Button: {fileID: 292518468}
   level03Button: {fileID: 292518467}
   level04Button: {fileID: 292518466}

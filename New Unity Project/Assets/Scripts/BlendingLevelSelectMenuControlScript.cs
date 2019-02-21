@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class BlendingLevelSelectMenuControlScript : MonoBehaviour
 {
+    [SerializeField]
+    private Text PlayerName;
 
     public Button level02Button, level03Button, level04Button, level05Button,
         level06Button, level07Button, level08Button, level09Button, level10Button,
