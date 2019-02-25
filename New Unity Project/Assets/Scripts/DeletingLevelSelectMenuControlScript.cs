@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class DeletingLevelSelectMenuControlScript : MonoBehaviour
 {
+    public Text score;
+    int ActiveStarCounter = 0;
 
     public Button level02Button, level03Button, level04Button, level05Button,
         level06Button, level07Button, level08Button, level09Button, level10Button,
@@ -47,39 +49,39 @@ public class DeletingLevelSelectMenuControlScript : MonoBehaviour
         int curr_scene = SceneManager.GetActiveScene().buildIndex;
         if (curr_scene >= 5 && curr_scene <= 25)
         {
-            ModePref = "CountingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "CountingRetries";
         }
         else if (curr_scene >= 26 && curr_scene <= 46)
         {
-            ModePref = "BlendingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "BlendingRetries";
         }
         else if (curr_scene >= 47 && curr_scene <= 67)
         {
-            ModePref = "DeletingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "DeletingRetries";
         }
         else if (curr_scene >= 68 && curr_scene <= 88)
         {
-            ModePref = "ManipulatingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ManipulatingRetries";
         }
         else if (curr_scene >= 89 && curr_scene <= 109)
         {
-            ModePref = "RhymingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "RhymingRetries";
         }
         else if (curr_scene >= 110 && curr_scene <= 120)
         {
-            ModePref = "ArithRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithRetries";
         }
         else if (curr_scene == 134 || (curr_scene >= 137 && curr_scene <= 146))
         {
-            ModePref = "ArithSubRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithSubRetries";
         }
         else if (curr_scene == 135 || (curr_scene >= 147 && curr_scene <= 156))
         {
-            ModePref = "ArithMultRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithMultRetries";
         }
         else if (curr_scene == 136 || (curr_scene >= 157 && curr_scene <= 166))
         {
-            ModePref = "ArithDivRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithDivRetries";
         }
     }
 
@@ -89,7 +91,7 @@ public class DeletingLevelSelectMenuControlScript : MonoBehaviour
     void Start()
     {
         ModePrefSelector(SceneManager.GetActiveScene().buildIndex);
-        DeleteLevelPassed = PlayerPrefs.GetInt("DeletePass");
+        DeleteLevelPassed = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "DeletePass");
         level02Button.interactable = false;
         level03Button.interactable = false;
         level04Button.interactable = false;
@@ -372,7 +374,18 @@ public class DeletingLevelSelectMenuControlScript : MonoBehaviour
                 Debug.Log("No such key as " + ModePref + "Level " + i.ToString());
             }
         }
+        for (int j = 0; j < 60; j++)
+        {
+            if (inGameMenuStars[j].activeSelf == true)
+            {
+                ActiveStarCounter++;
 
+            }
+
+        }
+        PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "DeleteScore", ActiveStarCounter);
+        score.text = "Score: " + PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "DeleteScore");
+        Debug.Log("DeleteScore is " + PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "DeleteScore"));
 
     }
 
@@ -405,7 +418,7 @@ public class DeletingLevelSelectMenuControlScript : MonoBehaviour
         level18Button.interactable = false;
         level19Button.interactable = false;
         level20Button.interactable = false;
-        PlayerPrefs.DeleteKey("DeletePass");
+        PlayerPrefs.DeleteKey(PlayerPrefs.GetString("username") + "DeletePass");
         for (int i = 0; i < 20; i++)
         {
 

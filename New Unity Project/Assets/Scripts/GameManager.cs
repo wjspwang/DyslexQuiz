@@ -47,8 +47,10 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
+        Debug.Log(SceneManager.GetActiveScene().buildIndex);
         ModePrefSelector(SceneManager.GetActiveScene().buildIndex);
         PlayerPrefs.DeleteKey(ModePref + LevelText.text);
+
         //Debug.Log("Start:" + PlayerPrefs.GetInt("ArithRetries" + LevelText.text));
         if (unansweredQuestions == null || unansweredQuestions.Count == 0)
         {
@@ -61,12 +63,14 @@ public class GameManager : MonoBehaviour {
         CorrectText.SetActive(false);
         WrongText.SetActive(false);
 
-       
+        
     }
   
     void Update()
     {
+        
         Retry.text = PlayerPrefs.GetInt(ModePref + LevelText.text) + "";
+        //Debug.Log(ModePref + LevelText.text + " " + PlayerPrefs.GetInt(ModePref + LevelText.text));
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -215,39 +219,39 @@ public class GameManager : MonoBehaviour {
         int curr_scene = SceneManager.GetActiveScene().buildIndex;
         if (curr_scene >= 5 && curr_scene <= 25)
         {
-            ModePref = "CountingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "CountingRetries";
         }
         else if (curr_scene >= 26 && curr_scene <= 46)
         {
-            ModePref = "BlendingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "BlendingRetries";
         }
         else if (curr_scene >= 47 && curr_scene <= 67)
         {
-            ModePref = "DeletingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "DeletingRetries";
         }
         else if (curr_scene >= 68 && curr_scene <= 88)
         {
-            ModePref = "ManipulatingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ManipulatingRetries";
         }
         else if (curr_scene >= 89 && curr_scene <= 109)
         {
-            ModePref = "RhymingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "RhymingRetries";
         }
         else if (curr_scene >= 110 && curr_scene <= 120)
         {
-            ModePref = "ArithRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithRetries";
         }
         else if (curr_scene == 134 || (curr_scene >= 137 && curr_scene <= 146))
         {
-            ModePref = "ArithSubRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithSubRetries";
         }
         else if (curr_scene == 135 || (curr_scene >= 147 && curr_scene <= 156))
         {
-            ModePref = "ArithMultRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithMultRetries";
         }
         else if (curr_scene == 136 || (curr_scene >= 157 && curr_scene <= 166))
         {
-            ModePref = "ArithDivRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithDivRetries";
         }
     }
     public void UserSelectAButton()
@@ -719,6 +723,7 @@ public class GameManager : MonoBehaviour {
             LevelDesign.SetTrigger("Wrong");
             LevelControlScript.instance.youLoseArithSub();
             PlayerPrefs.SetInt(ModePref + LevelText.text, PlayerPrefs.GetInt(ModePref + LevelText.text) + 1);
+
         }
     }
     public void Mult_ButtonA()

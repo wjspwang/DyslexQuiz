@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ArithLevelSelectMenuControlScript : MonoBehaviour
 {
+    public Text score;
 
     public Button level02Button, level03Button, level04Button, level05Button,
         level06Button, level07Button, level08Button, level09Button, level10Button,
@@ -14,6 +15,7 @@ public class ArithLevelSelectMenuControlScript : MonoBehaviour
     int ArithLevelPassed;
     public GameObject[] inGameMenuStars;
     public GameObject[] levelNumber;
+    int ActiveStarCounter = 0;
 
     private int collectedStarsCount = 0;
     private const int MAXIMUM_STARS_COUNT = 6;
@@ -44,47 +46,49 @@ public class ArithLevelSelectMenuControlScript : MonoBehaviour
         int curr_scene = SceneManager.GetActiveScene().buildIndex;
         if (curr_scene >= 5 && curr_scene <= 25)
         {
-            ModePref = "CountingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "CountingRetries";
         }
         else if (curr_scene >= 26 && curr_scene <= 46)
         {
-            ModePref = "BlendingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "BlendingRetries";
         }
         else if (curr_scene >= 47 && curr_scene <= 67)
         {
-            ModePref = "DeletingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "DeletingRetries";
         }
         else if (curr_scene >= 68 && curr_scene <= 88)
         {
-            ModePref = "ManipulatingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ManipulatingRetries";
         }
         else if (curr_scene >= 89 && curr_scene <= 109)
         {
-            ModePref = "RhymingRetries";
+            ModePref = PlayerPrefs.GetString("username") + "RhymingRetries";
         }
         else if (curr_scene >= 110 && curr_scene <= 120)
         {
-            ModePref = "ArithRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithRetries";
         }
         else if (curr_scene == 134 || (curr_scene >= 137 && curr_scene <= 146))
         {
-            ModePref = "ArithSubRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithSubRetries";
         }
         else if (curr_scene == 135 || (curr_scene >= 147 && curr_scene <= 156))
         {
-            ModePref = "ArithMultRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithMultRetries";
         }
         else if (curr_scene == 136 || (curr_scene >= 157 && curr_scene <= 166))
         {
-            ModePref = "ArithDivRetries";
+            ModePref = PlayerPrefs.GetString("username") + "ArithDivRetries";
         }
     }
+
 
     // Use this for initialization
     void Start()
     {
+
         ModePrefSelector(SceneManager.GetActiveScene().buildIndex);
-        ArithLevelPassed = PlayerPrefs.GetInt("ArithPass");
+        ArithLevelPassed = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "ArithPass");
         level02Button.interactable = false;
         level03Button.interactable = false;
         level04Button.interactable = false;
@@ -171,21 +175,23 @@ public class ArithLevelSelectMenuControlScript : MonoBehaviour
         {
             if (PlayerPrefs.HasKey(ModePref+"Level " + i))
             {
-                Debug.Log(ModePref+"Level " + i.ToString() +" "+PlayerPrefs.GetInt("ArithRetriesLevel "+i));
                 if(PlayerPrefs.GetInt(ModePref+"Level " + i) < 1)
                 {
                     inGameMenuStars[starArray].SetActive(true);
                     inGameMenuStars[starArray + 1].SetActive(true);
                     inGameMenuStars[starArray + 2].SetActive(true);
+                    PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "MathScore", +5);
                 }
                 else if (PlayerPrefs.GetInt(ModePref+"Level " + i) < 3)
                 {
                     inGameMenuStars[starArray].SetActive(true);
                     inGameMenuStars[starArray + 1].SetActive(true);
+                    PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "MathScore", +3);
                 }
                 else
                 {
                     inGameMenuStars[starArray].SetActive(true);
+                    PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "MathScore", +1);
                 }
                 starArray += 3;
             }
@@ -193,11 +199,23 @@ public class ArithLevelSelectMenuControlScript : MonoBehaviour
             {
                 Debug.Log("No such key as " + ModePref+"Level " + i.ToString());
             }
+
+
+
         }
 
-
-
-
+        for(int j = 0; j< 30; j++)
+        {
+            if(inGameMenuStars[j].activeSelf == true)
+            {
+                ActiveStarCounter++;
+                
+            }
+            
+        }
+        PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "ArithScore", ActiveStarCounter );
+        score.text = "Score: " + PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "ArithScore");
+        Debug.Log("ArithScore is " + PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "ArithScore"));
     }
 
 
@@ -231,7 +249,7 @@ public class ArithLevelSelectMenuControlScript : MonoBehaviour
         level19Button.interactable = false;
         level20Button.interactable = false;
         */
-        PlayerPrefs.DeleteKey("ArithPass");
+        PlayerPrefs.DeleteKey(PlayerPrefs.GetString("username")+ "ArithPass");
         for(int i=0; i < 20; i++)
         {
             

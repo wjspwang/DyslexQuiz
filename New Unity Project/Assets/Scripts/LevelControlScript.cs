@@ -23,16 +23,16 @@ public class LevelControlScript : MonoBehaviour {
         levelSign = GameObject.Find("LevelNumber");
 
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        levelPassed = PlayerPrefs.GetInt("LevelPassed");
-        BlendLevelPassed = PlayerPrefs.GetInt("BlendPass");
-        DeleteLevelPassed = PlayerPrefs.GetInt("DeletePass");
-        ManipulateLevelPassed = PlayerPrefs.GetInt("ManipulatePass");
-        RhymeLevelPassed = PlayerPrefs.GetInt("RhymePass");
-        ArithLevelPassed = PlayerPrefs.GetInt("ArithPass");
-        ArithSubLevelPassed = PlayerPrefs.GetInt("ArithSubPass");
-        ArithMultLevelPassed = PlayerPrefs.GetInt("ArithMultPass");
-        ArithDivLevelPassed = PlayerPrefs.GetInt("ArithDivPass");
-        retry = PlayerPrefs.GetInt("Level " + "LevelNumber");
+        levelPassed = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "LevelPassed");
+        BlendLevelPassed = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "BlendPass");
+        DeleteLevelPassed = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "DeletePass");
+        ManipulateLevelPassed = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "ManipulatePass");
+        RhymeLevelPassed = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "RhymePass");
+        ArithLevelPassed = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "ArithPass");
+        ArithSubLevelPassed = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "ArithSubPass");
+        ArithMultLevelPassed = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "ArithMultPass");
+        ArithDivLevelPassed = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "ArithDivPass");
+        retry = PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + " Level " + "LevelNumber");
 
     }
     //YOU WIN METHODS
@@ -43,7 +43,7 @@ public class LevelControlScript : MonoBehaviour {
         else
         {
             if (levelPassed < sceneIndex)
-                PlayerPrefs.SetInt("LevelPassed", sceneIndex);
+                PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "LevelPassed", sceneIndex);
             Invoke("loadCountingMenu", 1f);
 
         }
@@ -56,7 +56,7 @@ public class LevelControlScript : MonoBehaviour {
         else
         {
             if (BlendLevelPassed < sceneIndex)
-                PlayerPrefs.SetInt("BlendPass", sceneIndex);
+                PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "BlendPass", sceneIndex);
             Invoke("loadBlendingMenu", 1f);
         }
         Invoke("loadBlendingMenu", 1f);
@@ -69,7 +69,7 @@ public class LevelControlScript : MonoBehaviour {
         else
         {
             if (DeleteLevelPassed < sceneIndex)
-                PlayerPrefs.SetInt("DeletePass", sceneIndex);
+                PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "DeletePass", sceneIndex);
             Invoke("loadDeletingMenu", 1f);
         }
         Invoke("loadDeletingMenu", 1f);
@@ -82,7 +82,7 @@ public class LevelControlScript : MonoBehaviour {
         else
         {
             if (ManipulateLevelPassed < sceneIndex)
-                PlayerPrefs.SetInt("ManipulatePass", sceneIndex);
+                PlayerPrefs.SetInt(PlayerPrefs.GetString("username")+"ManipulatePass", sceneIndex);
             Invoke("loadManipulatingMenu", 1f);
         }
         Invoke("loadManipulatingMenu", 1f);
@@ -95,7 +95,7 @@ public class LevelControlScript : MonoBehaviour {
         else
         {
             if (RhymeLevelPassed < sceneIndex)
-                PlayerPrefs.SetInt("RhymePass", sceneIndex);
+                PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "RhymePass", sceneIndex);
             Invoke("loadRhymingMenu", 1f);
         }
         Invoke("loadRhymingMenu", 1f);
@@ -109,7 +109,7 @@ public class LevelControlScript : MonoBehaviour {
         else
         {
             if (ArithLevelPassed < sceneIndex)
-                PlayerPrefs.SetInt("ArithPass", sceneIndex);
+                PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "ArithPass", sceneIndex);
             Invoke("loadArithMenu", 1f);
         }
         Invoke("loadArithMenu", 1f);
@@ -121,7 +121,7 @@ public class LevelControlScript : MonoBehaviour {
         else
         {
             if (ArithSubLevelPassed < sceneIndex)
-                PlayerPrefs.SetInt("ArithSubPass", sceneIndex);
+                PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "ArithSubPass", sceneIndex);
             Invoke("loadArithSubMenu", 1f);
         }
         Invoke("loadArithSubMenu", 1f);
@@ -133,7 +133,7 @@ public class LevelControlScript : MonoBehaviour {
         else
         {
             if (ArithMultLevelPassed < sceneIndex)
-                PlayerPrefs.SetInt("ArithMultPass", sceneIndex);
+                PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "ArithMultPass", sceneIndex);
             Invoke("loadArithMultMenu", 1f);
         }
         Invoke("loadArithMultMenu", 1f);
@@ -145,7 +145,7 @@ public class LevelControlScript : MonoBehaviour {
         else
         {
             if (ArithDivLevelPassed < sceneIndex)
-                PlayerPrefs.SetInt("ArithDivPass", sceneIndex);
+                PlayerPrefs.SetInt(PlayerPrefs.GetString("username") + "ArithDivPass", sceneIndex);
             Invoke("loadArithDivMenu", 1f);
 
         }
@@ -179,7 +179,6 @@ public class LevelControlScript : MonoBehaviour {
     }
     public void youLoseArith()
     {
-       // PlayerPrefs.SetInt("Level " + "LevelNumber", +1);
         Invoke( "ReloadLevel", 1f);
     }
     public void youLoseArithSub()
