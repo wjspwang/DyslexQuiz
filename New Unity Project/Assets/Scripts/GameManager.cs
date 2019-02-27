@@ -141,6 +141,7 @@ public class GameManager : MonoBehaviour {
                 unansweredQuestions.Clear();
             }
         }
+
     }
     void CountingQuestionSet()
     {

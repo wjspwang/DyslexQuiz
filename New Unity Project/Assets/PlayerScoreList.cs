@@ -22,7 +22,6 @@ public class PlayerScoreList : MonoBehaviour
 
         if (scoreManager == null)
         {
-            Debug.LogError("1");
             return;
         }
         /*
@@ -31,6 +30,7 @@ public class PlayerScoreList : MonoBehaviour
             return;
         }
         */
+
 
         while (this.transform.childCount > 0 )
         {

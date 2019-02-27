@@ -7,22 +7,68 @@ public class ScoreManager : MonoBehaviour
 {
     Dictionary<string, Dictionary<string, int>> playerScores;
     int ChangeCounter = 0;
-
+    //int ProfileCount = 1;
+    
     void Start()
     {
-        SetScore(PlayerPrefs.GetString("username"),"English", 51);
-        SetScore(PlayerPrefs.GetString("username"), "Math", 42);
+        
+        for(int i = 0; i < 10 ; i++)
+        {
 
-        SetScore("joe", "English", 31);
-        SetScore("joe", "Math", 25);
+            SetScore(PlayerPrefs.GetString("Profile name" + i), "English", PlayerPrefs.GetInt("Profile EngScore" + i));
+            SetScore(PlayerPrefs.GetString("Profile name" + i), "Math", PlayerPrefs.GetInt("Profile MathScore" + i));
+            
 
-        SetScore("dan", "English", 61);
-        SetScore("dan", "Math", 29);
+            /*
+            PlayerPrefs.DeleteKey("Profile name" + i);
+            PlayerPrefs.DeleteKey("Profile EngScore" + i);
+            PlayerPrefs.DeleteKey("Profile MathScore" + i); 
+            */
 
-      
+        }
 
-       // Debug.Log("My score is " + GetScore("havenfalls123", "English"));
     }
+    void Update()
+    {
+        
+        for(int i=0; i < 10; i++)
+        {
+            if(PlayerPrefs.GetString("username") == PlayerPrefs.GetString("Profile name" + i))
+            {
+                PlayerPrefs.SetInt("Counter", i);
+                i = 11;
+                PlayerPrefs.SetInt("Profile EngScore" + PlayerPrefs.GetInt("Counter"), PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "EngScore"));
+                PlayerPrefs.SetInt("Profile MathScore" + PlayerPrefs.GetInt("Counter"), PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "MathScore"));
+                Debug.Log(PlayerPrefs.GetInt("Profile EngScore" + PlayerPrefs.GetInt("Counter")));
+            }
+
+        }
+        
+            //PlayerPrefs.SetInt("Profile EngScore" + userid, PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "EngScore"));
+            //PlayerPrefs.SetInt("Profile MathScore" + userid, PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "MathScore"));
+
+        
+
+    }
+    
+    public void addProfile()
+    {
+        int userid = PlayerPrefs.GetInt("userid");
+        if (PlayerPrefs.HasKey(PlayerPrefs.GetString("username")) == false)
+        {
+            PlayerPrefs.SetInt("userid", userid + 1);
+            Debug.Log("user id is" + userid);
+        }
+        Debug.Log(PlayerPrefs.HasKey(PlayerPrefs.GetString("username")) == false);
+        Debug.Log(PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "EngScore") + " " + PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "MathScore"));
+
+        PlayerPrefs.SetString("Profile name" + userid, PlayerPrefs.GetString("username"));
+        PlayerPrefs.SetInt(PlayerPrefs.GetString("Profile name" + userid),0);
+     PlayerPrefs.SetInt("Profile EngScore" + userid, PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "EngScore"));
+     PlayerPrefs.SetInt("Profile MathScore" + userid, PlayerPrefs.GetInt(PlayerPrefs.GetString("username") + "MathScore"));
+      
+    }
+ 
 
     void Init()
     {
@@ -46,7 +92,7 @@ public class ScoreManager : MonoBehaviour
         return playerScores[username][scoreType];
 
     }
-    public void SetScore(string username,string scoreType, int value)
+    public void SetScore(string username,string scoreType, int value )
     {
         Init();
         ChangeCounter++;
@@ -55,6 +101,7 @@ public class ScoreManager : MonoBehaviour
             playerScores[username] = new Dictionary<string, int>();
         }   
         playerScores[username][scoreType] = value;
+
     }
     public void ChangeScore(string username,string scoreType, int amount )
     {
